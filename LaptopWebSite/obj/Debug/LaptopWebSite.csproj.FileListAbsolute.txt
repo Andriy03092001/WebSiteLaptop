@@ -73,3 +73,10 @@ C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.Migrations.First.r
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.csproj.GenerateResource.Cache
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.Migrations.EditdescriptionbecauseiamsetHTML.resources
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.Migrations.Second.resources
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Hangfire.Core.dll
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Hangfire.SqlServer.dll
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Hangfire.Core.xml
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Hangfire.SqlServer.xml
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\es\Hangfire.Core.resources.dll
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\zh\Hangfire.Core.resources.dll
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\zh-TW\Hangfire.Core.resources.dll

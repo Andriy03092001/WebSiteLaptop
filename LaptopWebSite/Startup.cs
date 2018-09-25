@@ -1,4 +1,5 @@
-﻿using LaptopWebSite.Controllers;
+﻿using Hangfire;
+using LaptopWebSite.Controllers;
 using Microsoft.Owin;
 using Owin;
 
@@ -10,7 +11,15 @@ namespace LaptopWebSite
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-          
+            GlobalConfiguration.Configuration.UseSqlServerStorage("DefaultConnection");
+            ProductController obj = new ProductController();
+            app.UseHangfireDashboard("/myJobDashboard", new DashboardOptions()
+            {
+                Authorization = new[] { new HangfireAuthorizationFilter()}
+            });
+            RecurringJob.AddOrUpdate(
+                () => obj.ClearImage(), Cron.Minutely());
+            app.UseHangfireServer();
         }
     }
 }

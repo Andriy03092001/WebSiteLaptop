@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
@@ -40,6 +41,7 @@ namespace LaptopWebSite.Controllers
                 };
                 list.Add(product);
             }
+           
             temp.Clear();
             ListProductViewModel model = new ListProductViewModel()
             {
@@ -49,12 +51,33 @@ namespace LaptopWebSite.Controllers
             return View(model);
         }
 
+        public void ClearImage()
+        {
+            var listImage = _context.ProductDescriptionImages.Where(t=>t.ProductId==null);
+            foreach (var item in listImage)
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    //Server.MapPath(
+                    string image = System.Web.Hosting.HostingEnvironment.MapPath(ConfigurationManager.AppSettings["ProductDescriptionPath"]) + item.Name;
+                    if (System.IO.File.Exists(image))
+                    {
+                        System.IO.File.Delete(image);
+                    }
+                    _context.ProductDescriptionImages.Remove(item);
+                    scope.Complete();
+                }
+            }
+          
+            _context.SaveChanges();
+        }
+
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
-        //
+        
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(ProductAddViewModel model)
         {
@@ -65,7 +88,6 @@ namespace LaptopWebSite.Controllers
             }
             else
             {
-
                 Product product = new Product()
                 {
                     Name = model.Name,
