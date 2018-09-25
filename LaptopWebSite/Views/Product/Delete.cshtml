@@ -1,0 +1,27 @@
+﻿@model LaptopWebSite.ViewModels.ListProductDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Product for Delete</h2>
+
+<table class="table">
+    
+
+    @foreach (var item in Model.listProduct)
+    {
+        <tr>
+            <td>
+               <strong> @item.Name </strong>
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", null, new { @class = "btn btn-default btnDelete", @id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts {
+    <script src="~/Scripts/JS_DeleteProduct.js"></script>
+}

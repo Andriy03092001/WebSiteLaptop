@@ -1,0 +1,41 @@
+﻿@model  LaptopWebSite.ViewModels.ProductViemModel
+@{
+ 
+}
+
+
+
+
+
+<div class="row">
+    <div id="left" class="col-ld-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 divForImgProduct">
+            <img src="~/Images/Product/avatar.png" width="550" height="450" style="border:2px solid gray; margin:5px" />
+        </div>
+    </div>
+    <div id="right" class="col-ld-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:35px">
+        <div class="col-lg-5 col-md-5 ">
+            <h2 style="color:#B71B1B; " id="txtProductName">@Model.Name</h2>
+        </div>
+        
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="float:left">
+            <h2 style="float:left">Price:</h2>
+            <h2 style="color:#B71B1B; float:right">@Model.Price $</h2>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="float:left">
+            <h2 style="float:left">Count:</h2>
+            <h2 style="color:#B71B1B; float:right">@Model.Count</h2>
+        </div>
+        
+
+
+    </div> 
+    <div class="col-lg-12 col-md-12 col-sm-12 col-sx-12" style="float:left">
+        <h2 style="text-align:center">Description</h2>
+        
+            @Html.Raw(@Model.Description)
+       
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="~/Scripts/SendOrderJS.js"></script>

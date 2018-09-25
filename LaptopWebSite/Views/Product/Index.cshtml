@@ -1,0 +1,33 @@
+﻿@model LaptopWebSite.ViewModels.ListProductViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Products</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Delete product", "Delete", null, new { @class = "btn btn-default" })
+</p>
+
+
+
+@foreach (var item in Model.listProduct)
+{
+    <a href="@Url.Action("Product","Product", new { id=item.Id})" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 myProduct" id="@item.Id">
+        <div class="contentItem">
+            <img src="~/Images/Product/avatar.png" width="300" height="230"style="background-size:cover" />
+            <h3 style="color:GrayText">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;@item.Name</h3>
+            @if (item.IsAvailable == false)
+            {
+            <h5 class="center" style=" text-decoration: none; color:red"><font color="black" size="3"><strong>@item.Price $</strong></font>&#160;&#160;Not available</h5>
+            }
+            else
+            {
+            <h5 class="center" style=" text-decoration: none; color:green"><font color="black" size="3"><strong>@item.Price $</strong></font>&#160;&#160;In stock</h5>
+            }
+        </div>
+    </a>
+
+}
