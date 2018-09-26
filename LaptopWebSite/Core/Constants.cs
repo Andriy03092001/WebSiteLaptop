@@ -15,5 +15,15 @@ namespace LaptopWebSite.Core
                 return ConfigurationManager.AppSettings["ProductDescriptionPath"];
             }
         }
+
+        public static string ProductImagesPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ProductImagesPath"];
+            }
+        }
+
+        
     }
 }

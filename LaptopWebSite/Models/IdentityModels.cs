@@ -33,5 +33,6 @@ namespace LaptopWebSite.Models
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductDescriptionImage> ProductDescriptionImages { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
     }
 }

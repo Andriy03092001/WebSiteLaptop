@@ -65,7 +65,6 @@ C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Microsoft.AI.DependencyCollector.xml
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Microsoft.AI.WindowsServer.xml
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Microsoft.AI.Web.xml
-C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.csprojResolveAssemblyReference.cache
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.csproj.CoreCompileInputs.cache
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.dll
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.pdb
@@ -80,3 +79,6 @@ C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\Hangfire.SqlServer.xml
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\es\Hangfire.Core.resources.dll
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\zh\Hangfire.Core.resources.dll
 C:\ANDRIY\LaptopWebSite\LaptopWebSite\bin\zh-TW\Hangfire.Core.resources.dll
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.csprojResolveAssemblyReference.cache
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.Migrations.asd.resources
+C:\ANDRIY\LaptopWebSite\LaptopWebSite\obj\Debug\LaptopWebSite.Migrations.asd1.resources

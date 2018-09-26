@@ -1,0 +1,112 @@
+body:after {
+    opacity: 0;
+    content: "";
+}
+
+body.open:after {
+    content: "";
+    background-color: #000000;
+    opacity: 1;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    transition: all 0.3s 0.3s;
+}
+
+.containerCrop {
+    display: none;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 50%;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    transform: translateX(-50%);
+}
+
+.bootstrap-filestyle input {
+    width: 100%;
+    max-width: 100%;
+}
+
+.hideElement {
+    display: none;
+}
+
+.containerCrop {
+    width: 1170px;
+    margin: 0 auto;
+}
+
+.containerCrop #canvas {
+        width: 700px;
+        height: 400px;
+        border: 1px solid #aaa;
+        cursor: default;
+    }
+.containerCrop img {
+        max-width: 100%;
+    }
+
+
+.docs-preview {
+    margin-right: -1rem;
+}
+
+.img-preview {
+    float: left;
+    margin-bottom: .5rem;
+    margin-right: .5rem;
+    overflow: hidden;
+}
+
+    .img-preview > img {
+        max-width: 100%;
+    }
+
+.preview-lg {
+    height: 9rem;
+    width: 16rem;
+}
+
+.preview-md {
+    height: 4.5rem;
+    width: 8rem;
+}
+
+.preview-sm {
+    height: 2.25rem;
+    width: 4rem;
+}
+
+.preview-xs {
+    height: 1.125rem;
+    margin-right: 0;
+    width: 2rem;
+}
+
+.centered {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /*margin-top: -100px;*/
+    /*margin-left: -100px;*/
+}
+
+.icon-big {
+    font-size: 82pt;
+   
+ }
+
+.icon-delete {
+    cursor: pointer;
+    color: red;
+    float:right;
+}

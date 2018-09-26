@@ -218,10 +218,20 @@
     <Compile Include="Migrations\201809241255594_Second.Designer.cs">
       <DependentUpon>201809241255594_Second.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809261905232_asd.cs" />
+    <Compile Include="Migrations\201809261905232_asd.Designer.cs">
+      <DependentUpon>201809261905232_asd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809261907407_asd1.cs" />
+    <Compile Include="Migrations\201809261907407_asd1.Designer.cs">
+      <DependentUpon>201809261907407_asd1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Entities\Product.cs" />
     <Compile Include="Models\Entities\ProductDescriptionImage.cs" />
+    <Compile Include="Models\Entities\ProductImage.cs" />
+    <Compile Include="Models\HelpersModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -231,6 +241,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cropper\cropper.css" />
+    <Content Include="Content\cropper\cropper.min.css" />
+    <Content Include="Content\cropper\main.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
@@ -250,6 +263,9 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cropper\cropper.js" />
+    <Content Include="Scripts\cropper\cropper.min.js" />
+    <Content Include="Scripts\cropper\scripts.js" />
     <Content Include="Scripts\froala-editor\css\editor_custom.css" />
     <Content Include="Scripts\froala-editor\css\froala_editor.css" />
     <Content Include="Scripts\froala-editor\css\froala_editor.min.css" />
@@ -424,6 +440,8 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\_AddImages.cshtml" />
+    <Content Include="Views\Product\_ImageCropper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -451,6 +469,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809241255594_Second.resx">
       <DependentUpon>201809241255594_Second.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809261905232_asd.resx">
+      <DependentUpon>201809261905232_asd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809261907407_asd1.resx">
+      <DependentUpon>201809261907407_asd1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

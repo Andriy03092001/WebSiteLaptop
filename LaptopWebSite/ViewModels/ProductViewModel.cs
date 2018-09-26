@@ -59,6 +59,7 @@ namespace LaptopWebSite.ViewModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public string[] DescriptionImages { get; set; }
+        public string[] ProductImages { get; set; }
 
     }
 

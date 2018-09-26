@@ -18,7 +18,7 @@ namespace LaptopWebSite
                 Authorization = new[] { new HangfireAuthorizationFilter()}
             });
             RecurringJob.AddOrUpdate(
-                () => obj.ClearImage(), Cron.Minutely());
+                () => obj.ClearImage(), Cron.Daily(8,0));
             app.UseHangfireServer();
         }
     }
