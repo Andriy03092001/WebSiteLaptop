@@ -41,7 +41,7 @@ namespace LaptopWebSite.Controllers
                 };
                 list.Add(product);
             }
-           
+
             temp.Clear();
             ListProductViewModel model = new ListProductViewModel()
             {
@@ -53,7 +53,7 @@ namespace LaptopWebSite.Controllers
 
         public void ClearImage()
         {
-            var listImage = _context.ProductDescriptionImages.Where(t=>t.ProductId==null);
+            var listImage = _context.ProductDescriptionImages.Where(t => t.ProductId == null);
             foreach (var item in listImage)
             {
                 using (TransactionScope scope = new TransactionScope())
@@ -68,7 +68,7 @@ namespace LaptopWebSite.Controllers
                     scope.Complete();
                 }
             }
-          
+
             _context.SaveChanges();
         }
 
@@ -77,7 +77,7 @@ namespace LaptopWebSite.Controllers
         {
             return View();
         }
-        
+
         [HttpPost, ValidateInput(false)]
         public ActionResult Create(ProductAddViewModel model)
         {
@@ -98,14 +98,19 @@ namespace LaptopWebSite.Controllers
                 };
                 _context.Products.Add(product);
 
-                for (int i = 0; i < model.DescriptionImages.Count(); i++)
+                if (model.DescriptionImages.Count() != 0)
                 {
-                    var temp = model.DescriptionImages[i];
-                    if (temp != null) {
-                        _context.ProductDescriptionImages.FirstOrDefault(t => t.Name == temp).ProductId = product.Id;
+                    for (int i = 0; i < model.DescriptionImages.Count(); i++)
+                    {
+                        var temp = model.DescriptionImages[i];
+                        if (temp != null)
+                        {
+                            _context.ProductDescriptionImages.FirstOrDefault(t => t.Name == temp).ProductId = product.Id;
+                        }
+
                     }
-                    
                 }
+
 
 
                 _context.SaveChanges();
@@ -226,8 +231,8 @@ namespace LaptopWebSite.Controllers
             foreach (var item in temp)
             {
                 ProductDeleteViewModel product = new ProductDeleteViewModel
-                {   
-                    Id = item.Id,    
+                {
+                    Id = item.Id,
                     Name = item.Name
                 };
                 list.Add(product);
@@ -245,14 +250,15 @@ namespace LaptopWebSite.Controllers
         {
             string path = Server.MapPath(Constants.ProductDescriptionPath);
             //Delete in DB
-            var product = _context.Products.FirstOrDefault(t=>t.Id == model.Id);
+            var product = _context.Products.FirstOrDefault(t => t.Id == model.Id);
             _context.Products.Remove(product);
 
-            var listImageProductDescription = _context.ProductDescriptionImages.Where(t=>t.ProductId == model.Id);
-            foreach (var item in listImageProductDescription) {
+            var listImageProductDescription = _context.ProductDescriptionImages.Where(t => t.ProductId == model.Id);
+            foreach (var item in listImageProductDescription)
+            {
                 _context.ProductDescriptionImages.Remove(item);
                 //Delete image in Server
-                System.IO.File.Delete(path+item.Name);
+                System.IO.File.Delete(path + item.Name);
             }
             _context.SaveChanges();
 
@@ -260,6 +266,6 @@ namespace LaptopWebSite.Controllers
         }
 
 
-       
+
     }
 }
