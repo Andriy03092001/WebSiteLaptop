@@ -16,10 +16,7 @@ namespace LaptopWebSite.ViewModels
         [Required]
         public decimal Price { get; set; }
         [Required]
-        public int Count { get; set; }
-        [Required]
-        public bool IsAvailable { get; set; }
-
+        public string Avatar { get; set; }
     }
 
     public class ProductViemModel
@@ -36,6 +33,8 @@ namespace LaptopWebSite.ViewModels
         public bool IsAvailable { get; set; }
         [Required]
         public string Description { get; set; }
+        [Required]
+        public List<string> ListImage { get; set; }
     }
 
     public class DeleteViewModel
@@ -47,16 +46,21 @@ namespace LaptopWebSite.ViewModels
     {
         [Required]
         [StringLength(150)]
+        [Display(Name = "Name")]
         public string Name { get; set; }
         [Required]
+        [Display(Name = "Price")]
         public decimal Price { get; set; }
         [Required]
+        [Display(Name = "Count")]
         public int Count { get; set; }
         [Required]
+        [Display(Name = "Is Available")]
         public bool IsAvailable { get; set; }
         [Required]
         [StringLength(4000)]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
         public string[] DescriptionImages { get; set; }
         public string[] ProductImages { get; set; }

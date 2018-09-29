@@ -1,0 +1,23 @@
+﻿input[type=file] {
+  cursor: pointer;
+  height: 34px;
+  overflow: hidden;
+}
+
+input[type=file]:before {
+   width: 100px;
+   height: 32px;
+   font-size: 16px;
+   line-height: 32px;
+   content: 'Select file';
+   display: inline-block;
+   background: white;
+   border: 1px solid #32c5d2;
+   color: #32c5d2;
+   padding: 0 10px;
+   margin:0px; 
+}
+
+input[type=file]::-webkit-file-upload-button {
+    visibility: hidden;
+}

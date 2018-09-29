@@ -32,15 +32,15 @@ namespace LaptopWebSite.Controllers
             var temp = _context.Products.ToList();
             foreach (var item in temp)
             {
-                ProductItemViemModel product = new ProductItemViemModel
-                {
-                    Count = item.Count,
-                    Id = item.Id,
-                    IsAvailable = item.IsAvailable,
-                    Name = item.Name,
-                    Price = item.Price
-                };
-                list.Add(product);
+                //ProductItemViemModel product = new ProductItemViemModel
+                //{
+                //    Count = item.Count,
+                //    Id = item.Id,
+                //    IsAvailable = item.IsAvailable,
+                //    Name = item.Name,
+                //    Price = item.Price
+                //};
+                //list.Add(product);
             }
 
             temp.Clear();
@@ -114,24 +114,26 @@ namespace LaptopWebSite.Controllers
                 };
                 _context.Products.Add(product);
 
-                if (model.DescriptionImages.Count() != 0)
+                if (model.DescriptionImages != null)
                 {
                     for (int i = 0; i < model.DescriptionImages.Count(); i++)
                     {
-                        var temp = model.DescriptionImages[i];
-                        if (temp != null)
+                        string temp = model.DescriptionImages[i];
+                        var ImageTemp = _context.ProductDescriptionImages.FirstOrDefault(t=>t.Name==temp);
+                        if (ImageTemp != null)
                         {
                             _context.ProductDescriptionImages.FirstOrDefault(t => t.Name == temp).ProductId = product.Id;
                         }
                     }
                 }
 
-                if (model.ProductImages.Count() != 0)
+                if (model.ProductImages != null)
                 {
                     for (int i = 0; i < model.ProductImages.Count(); i++)
                     {
-                        var temp = model.ProductImages[i];
-                        if (temp != null)
+                        string temp = model.ProductImages[i];
+                        var ImageTemp = _context.ProductImages.FirstOrDefault(t=>t.FileName == temp);
+                        if (ImageTemp != null)
                         {
                             _context.ProductImages.FirstOrDefault(t => t.FileName == temp).ProductId = product.Id;
                         }
@@ -147,7 +149,7 @@ namespace LaptopWebSite.Controllers
         public JsonResult UploadImageDescription(HttpPostedFileBase file)
         {
             string link = string.Empty;
-            var filename = Guid.NewGuid().ToString() + ".jpg";
+            var filename = Guid.NewGuid().ToString() + ".png";
             string image = Server.MapPath(Constants.ProductDescriptionPath) + filename;
             try
             {
@@ -164,7 +166,7 @@ namespace LaptopWebSite.Controllers
                             };
                             _context.ProductDescriptionImages.Add(pdImage);
                             _context.SaveChanges();
-                            saveImage.Save(image, ImageFormat.Jpeg);
+                            saveImage.Save(image, ImageFormat.Png);
                             link = Url.Content(Constants.ProductDescriptionPath) + filename;
                             scope.Complete();
                         }
@@ -224,8 +226,17 @@ namespace LaptopWebSite.Controllers
 
         public ActionResult Product(int id)
         {
-           
             var temp = _context.Products.FirstOrDefault(t => t.Id == id);
+            List<string> listImage = new List<string>();
+            var list = _context.ProductImages.Where(t=>t.ProductId==id);
+            if(list != null)
+            {
+                foreach (var item in list)
+                {
+                    listImage.Add(item.FileName);
+                }
+            }
+            
             ProductViemModel model = new ProductViemModel()
             {
                 Id = temp.Id,
@@ -233,7 +244,8 @@ namespace LaptopWebSite.Controllers
                 IsAvailable = temp.IsAvailable,
                 Name = temp.Name,
                 Price = temp.Price,
-                Description = temp.Description
+                Description = temp.Description,
+                ListImage = listImage
             };
             return View(model);
         }
@@ -282,7 +294,7 @@ namespace LaptopWebSite.Controllers
         [ValidateAntiForgeryToken]
         public ContentResult UploadBase64(string base64image)
         {
-            string filename = Guid.NewGuid().ToString() + ".jpg";
+            string filename = Guid.NewGuid().ToString() + ".png";
             string imageBig = Server.MapPath(Constants.ProductImagesPath) + filename;
             string json = null;
             try
@@ -290,10 +302,10 @@ namespace LaptopWebSite.Controllers
                 // The Complete method commits the transaction. If an exception has been thrown,
                 // Complete is not  called and the transaction is rolled back.
                 Bitmap imgCropped = base64image.FromBase64StringToBitmap();
-                var saveImage = ImageWorker.CreateImage(imgCropped, 300, 300);
+                var saveImage = ImageWorker.CreateImage(imgCropped, 1000, 1000);
                 if (saveImage == null)
                     throw new Exception("Error save image");
-                saveImage.Save(imageBig, ImageFormat.Jpeg);
+                saveImage.Save(imageBig, ImageFormat.Png);
 
                 //var saveImageIcon = ImageWorker.CreateImage(imgCropped, 32, 32);
                 //if (saveImageIcon == null)

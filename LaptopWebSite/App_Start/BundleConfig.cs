@@ -17,7 +17,8 @@ namespace LaptopWebSite
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Scripts/modernizr-*"
+                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
@@ -45,33 +46,35 @@ namespace LaptopWebSite
                       "~/Scripts/froala-editor/css/froala_style.css"));
 
 
+
+
             bundles.Add(new ScriptBundle("~/bundles/froala").Include(
-               "~/Scripts/froala-editor/js/ua.js",
-               "~/Scripts/froala-editor/js/froala_editor.min.js",
-               "~/Scripts/froala-editor/js/plugins/align.min.js",
-               "~/Scripts/froala-editor/js/plugins/char_counter.min.js",
-               "~/Scripts/froala-editor/js/plugins/code_beautifier.min.js",
-               "~/Scripts/froala-editor/js/plugins/code_view.min.js",
-               "~/Scripts/froala-editor/js/plugins/colors.min.js",
-               "~/Scripts/froala-editor/js/plugins/draggable.min.js",
-               "~/Scripts/froala-editor/js/plugins/emoticons.min.js",
-               "~/Scripts/froala-editor/js/plugins/entities.min.js",
-               "~/Scripts/froala-editor/js/plugins/font_family.min.js",
-               "~/Scripts/froala-editor/js/plugins/font_size.min.js",
-               "~/Scripts/froala-editor/js/plugins/forms.min.js",
-               "~/Scripts/froala-editor/js/plugins/image.min.js",
-               "~/Scripts/froala-editor/js/plugins/image_manager.min.js",
-               "~/Scripts/froala-editor/js/plugins/line_breaker.min.js",
-               "~/Scripts/froala-editor/js/plugins/link.min.js",
-               "~/Scripts/froala-editor/js/plugins/lists.min.js",
-               "~/Scripts/froala-editor/js/plugins/paragraph_format.min.js",
-               "~/Scripts/froala-editor/js/plugins/paragraph_style.min.js",
-               "~/Scripts/froala-editor/js/plugins/quick_insert.min.js",
-               "~/Scripts/froala-editor/js/plugins/quote.min.js",
-               "~/Scripts/froala-editor/js/plugins/save.min.js",
-               "~/Scripts/froala-editor/js/plugins/table.min.js",
-               "~/Scripts/froala-editor/js/plugins/url.min.js",
-               "~/Scripts/froala-editor/js/plugins/video.min.js"));
+                "~/Scripts/froala-editor/js/ua.js",
+                "~/Scripts/froala-editor/js/froala_editor.min.js",
+                "~/Scripts/froala-editor/js/plugins/align.min.js",
+                "~/Scripts/froala-editor/js/plugins/char_counter.min.js",
+                "~/Scripts/froala-editor/js/plugins/code_beautifier.min.js",
+                "~/Scripts/froala-editor/js/plugins/code_view.min.js",
+                "~/Scripts/froala-editor/js/plugins/colors.min.js",
+                "~/Scripts/froala-editor/js/plugins/draggable.min.js",
+                "~/Scripts/froala-editor/js/plugins/emoticons.min.js",
+                "~/Scripts/froala-editor/js/plugins/entities.min.js",
+                "~/Scripts/froala-editor/js/plugins/font_family.min.js",
+                "~/Scripts/froala-editor/js/plugins/font_size.min.js",
+                "~/Scripts/froala-editor/js/plugins/forms.min.js",
+                "~/Scripts/froala-editor/js/plugins/image.min.js",
+                "~/Scripts/froala-editor/js/plugins/image_manager.min.js",
+                "~/Scripts/froala-editor/js/plugins/line_breaker.min.js",
+                "~/Scripts/froala-editor/js/plugins/link.min.js",
+                "~/Scripts/froala-editor/js/plugins/lists.min.js",
+                "~/Scripts/froala-editor/js/plugins/paragraph_format.min.js",
+                "~/Scripts/froala-editor/js/plugins/paragraph_style.min.js",
+                "~/Scripts/froala-editor/js/plugins/quick_insert.min.js",
+                "~/Scripts/froala-editor/js/plugins/quote.min.js",
+                "~/Scripts/froala-editor/js/plugins/save.min.js",
+                "~/Scripts/froala-editor/js/plugins/table.min.js",
+                "~/Scripts/froala-editor/js/plugins/url.min.js",
+                "~/Scripts/froala-editor/js/plugins/video.min.js"));
 
 
         }

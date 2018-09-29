@@ -1,0 +1,122 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", false)
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css">
+    <link href="~/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css">
+    <link href="~/assets/pages/css/login.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/StyleForMenu.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="active">
+            <div class="sidebar-header">
+                <h3><a href="@Url.Action("Index","AdminPanel")"><font size="6" color="#ffffff">Admin</font><font size="6" color="#e08686">Panel</font></a></h3>
+                <strong><a href="@Url.Action("Index","AdminPanel")"><font color="#ffffff">A</font><font color="#e08686">P</font></a></strong>
+            </div>
+
+            <ul class="list-unstyled ">
+                <li id="btnHome" >
+                    <a href="@Url.Action("Index","AdminPanel")">
+                        <i style="margin-left:15px;" class="glyphicon glyphicon-home"></i>Home
+                    </a>
+                </li>
+                <li id="btnUser">
+                    <a href="@Url.Action("User","AdminPanel")">
+                        <i style="margin-left:15px;" class="fa fa-users"></i> Users
+                    </a>
+                </li>
+                <li id="btnProduct" >
+                    <a href="@Url.Action("Product","AdminPanel")">
+                        <i style="margin-left:15px;" class="fa fa-laptop"></i>Product
+                    </a>
+                </li>
+
+
+
+
+
+            </ul>
+        </nav>
+
+        <div class="content" style="width:100%">
+            <nav class="navbar navbar-default" style="padding:0px;">
+                <div class="container-fluid" style="padding:0px;">
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" style="background-color:#1c65a3">
+                            <i class="glyphicon glyphicon-align-justify"></i>
+                        </button>
+                    </div>
+
+                    @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="background-color:#1c65a3; ">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="dropdown dropdown-user">
+                                    <a href="javascript:;" class="dropdown-toggle UserIcon" style="color:#a19c9c" data-toggle="dropdown" data-hover="dropdown">
+                                        @*<img alt="" class="img-circle" src="@Html.Action("Icon","Account", new { area = ""})" style="width:35px; margin-right:4px">*@
+                                        @*<span class="username username-hide-on-mobile "> @Html.Action("FullName", "Account", new { area = "" }) </span>*@
+                                        <i class="fa fa-angle-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu ">
+                                        <li id="btnExit">
+                                            <a class="btnExit" href="javascript:document.getElementById('logoutForm').submit()" style="color:white; background-color:#1c65a3">
+                                                Log Out
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+                </div>
+                <div class="body-content" style="padding:15px;">
+                    @RenderBody()
+                </div>
+            </nav>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

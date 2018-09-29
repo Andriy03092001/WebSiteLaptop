@@ -1,0 +1,83 @@
+﻿@model LaptopWebSite.ViewModels.ListProductViewModel
+
+@{
+    ViewBag.Title = "Product";
+    string path = Url.Content(LaptopWebSite.Core.Constants.ProductImagesPath);}
+
+<div style="min-height:900px; padding:10px; background-color:#e9ecf3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class=" icon-layers font-green"></i>
+                        <span class="caption-subject font-green bold uppercase">Products</span>
+                    </div>
+                    <a style="float:right" class="btn green btn-outline" href="@Url.Action("Create","AdminPanel")"><strong>CREATE NEW PRODUCT</strong></a>
+
+                </div>
+                <div class="portlet-body">
+                    <div class="mt-element-card mt-element-overlay">
+                        <div class="row">
+                            @foreach (var item in Model.listProduct)
+                            {
+                                var image = path + item.Avatar;
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="mt-card-item" style="padding:10px">
+                                        <div class="mt-card-avatar mt-overlay-1">
+                                            <img src="@image">
+                                            <div class="mt-overlay">
+                                                <ul class="mt-info">
+                                                    <li>
+                                                        <a class="btn default btn-outline" href="javascript:;">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="btn default btn-outline" href="javascript:;">
+                                                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="btn default btn-outline" href="javascript:;">
+                                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="mt-card-content">
+                                            <h3 class="mt-card-name">@item.Name</h3>
+                                            <p class="mt-card-desc font-grey-mint" style="font-size:20px"><strong>@item.Price $</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="~/Areas/Admin/Scripts/ProductScript.js"></script>
+
+    <script src="~/assets/global/scripts/datatable.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/datatables/datatables.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+
+    <script src="~/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="~/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+    <script src="~/assets/global/scripts/app.min.js" type="text/javascript"></script>
+    <script src="~/assets/pages/scripts/table-datatables-managed.min.js" type="text/javascript"></script>
+    <script src="~/assets/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
+    <script src="~/assets/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+    <script src="~/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+    <script src="~/assets/layouts/global/scripts/quick-nav.min.js" type="text/javascript"></script>
+}

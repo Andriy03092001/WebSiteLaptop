@@ -1,0 +1,32 @@
+﻿@{
+    string path = Url.Content(LaptopWebSite.Core.Constants.ProductImagesPath);
+}
+
+<div id="fileUploadContainer">
+
+</div>
+
+<div class="row">
+    <div id="listUploadImages">
+
+    </div>
+
+    <div class="col-md-2 plusupload" id="imageContainerPlus" data-counter="1">
+        <div class="thumbnail" style="border:0; ">
+            <i class="glyphicon glyphicon-folder-open" aria-hidden="true" alt="Lights" style="border:0; vertical-align: text-bottom; font-size:50px; cursor:pointer"></i>
+        </div>
+    </div>
+</div>
+@Html.Partial("_ImageCropper")
+
+@using (Html.BeginForm("Add", "ProductImages", FormMethod.Post,
+   new
+   {
+       id = "__AjaxAntiForgeryForm",
+       @class = "form-horizontal",
+       role = "form"
+   }))
+{
+    @Html.Hidden("ImageBase64")
+    @Html.AntiForgeryToken()
+}

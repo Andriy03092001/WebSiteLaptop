@@ -9,6 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LaptopWebSite.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Threading;
+using LaptopWebSite.Models.Entities;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace LaptopWebSite.Controllers
 {
@@ -17,10 +22,37 @@ namespace LaptopWebSite.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        ApplicationDbContext _context;
         public AccountController()
         {
+             _context = new ApplicationDbContext();
         }
+
+       
+
+        //[ChildActionOnly]
+        //public string FullName()
+        //{
+        //    ApplicationDbContext _context = new ApplicationDbContext();
+
+        //    var user = _context.Users.FirstOrDefault(t => t.Email == User.Identity.Name);
+        //    var student = _context.Users.FirstOrDefault(t => t.Id == user.Id);
+        //    var fullname = student.Email + " " + student.Email;
+        //    return fullname;
+        //}
+
+        //[ChildActionOnly]
+        //public string Icon()
+        //{
+        //    ApplicationDbContext _context = new ApplicationDbContext();
+
+        //    var user = _context.Users.FirstOrDefault(t => t.Email == User.Identity.Name);
+        //    var student = _context.Users.FirstOrDefault(t => t.Id == user.Id);
+        //    var image = "https://localhost:44327/Upload/Photo/" + _context.Users.FirstOrDefault(t => t.Id == user.Id).Image;
+        //    return image;
+        //}
+
+        
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
@@ -57,8 +89,8 @@ namespace LaptopWebSite.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+                ViewBag.ReturnUrl = returnUrl;
+                return View();
         }
 
         //
@@ -72,23 +104,35 @@ namespace LaptopWebSite.Controllers
             {
                 return View(model);
             }
+          
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+                var IdUser = _context.Users.FirstOrDefault(t => t.Email == model.Email);
+                string IdRole = _context.Roles.FirstOrDefault(t => t.Name == "Admin").Id;
+                IdentityUserRole temp = null;
+                if (IdUser != null)
+                {
+                    temp = _context.Set<IdentityUserRole>().FirstOrDefault(t => t.RoleId == IdRole && t.UserId == IdUser.Id);
+                }
+
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        if (temp != null)
+                            return RedirectToAction("Index", "AdminPanel", new { area = "Admin" });
+                        else
+                            return RedirectToAction("Index", "Home");
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+           
+            return View(model);
         }
 
         //
@@ -139,7 +183,7 @@ namespace LaptopWebSite.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+                return View();
         }
 
         //
@@ -153,21 +197,32 @@ namespace LaptopWebSite.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_context));
+
+                    userManager.AddToRole(user.Id, "User");
+                   
+
+                    UserProfiler student = new UserProfiler()
+                    {
+                        Id = user.Id,
+                        Name = model.Name,
+                        Email = model.Email
+                    };
+                    _context.UserProfiles.Add(student);
+                    _context.SaveChanges();
+
+                    //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
+            Thread.Sleep(2000);
             // If we got this far, something failed, redisplay form
             return View(model);
         }

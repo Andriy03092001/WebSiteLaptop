@@ -1,0 +1,145 @@
+﻿@model LaptopWebSite.ViewModels.ProductAddViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+@section styles{
+    @Styles.Render("~/Content/froala");
+    <link href="~/Content/cropper/cropper.min.css" rel="stylesheet" />
+    <link href="~/Content/cropper/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+   @* <link href="~/Scripts/froala-editor/css/themes/dark.css" rel="stylesheet" />*@
+    }
+<h2>Create new product</h2>
+<hr />
+<div class="form-horizontal">
+
+    <div class="form-group">
+        <lable class="control-label col-md-2  ">Images</lable>
+        <div class="col-md-10">
+            @Html.Partial("_AddImages")
+        </div>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsAvailable)
+                    @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @id = "textEditor", @class = "form-control html-editor-autoinit" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="hidden" id="divImage"></div>
+        <div class="hidden" id="divImages"></div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn green btn-outline"><strong>Save product</strong></button>
+            </div>
+        </div>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/froala");
+    <script src="~/Areas/Admin/Scripts/cropper/scripts.js"></script>
+    <script src="~/Areas/Admin/Scripts/cropper/cropper.min.js"></script>
+    <script>
+        $(function () {
+            $('.html-editor-autoinit').froalaEditor(
+                {
+                    imageUploadURL: '/Admin/AdminPanel/UploadImageDescription',
+                    imageMaxSize: 2 * 1024 * 1024
+                }
+            )
+
+                .on('froalaEditor.image.uploaded', function (e, editor, response) {
+
+
+
+                    var $divImage = $("#divImage");
+                    var data = JSON.parse(response);
+                    var hidden = "<input type='hidden' id='DescriptionImages' name='DescriptionImages' value='" + data.filename + "'/> ";
+
+                    console.log(data.filename);
+                    $divImage.append(hidden);
+
+                    console.log(response);
+                })
+                .on('froalaEditor.image.error', function (e, editor, error, response) {
+                    if (error.code == 5) {
+                        alert("Size image < 2mb")
+                        return false;
+                    }
+                })
+                .on('froalaEditor.image.removed', function (e, editor, $img) {
+                    $.ajax({
+                        method: "POST",
+                        url: "/Admin/AdminPanel/DeleteImageDecription",
+                        data: {
+                            src: $img.attr('src')
+                        }
+                    }).done(function (data) {
+
+                        $("#divImage : input[value='" + data.filename + "']").filter().remove();
+                        console.log(data);
+                    });
+                });
+
+
+            //$('.html-editor-autoinit').froalaEditor({
+            //    theme: 'dark',
+            //    zIndex: 2003
+            //})
+        })
+    </script>
+}

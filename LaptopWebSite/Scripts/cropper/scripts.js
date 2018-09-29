@@ -50,8 +50,7 @@ $(function () {
                         var $divImages = $("#divImages");
                         var hidden2 = "<input type='hidden' id='ProductImages' name='ProductImages' value='" + result.image + "'/> ";
                         $divImages.append(hidden2);
-                        alert(result.image);
-
+                        
                         itemImage += '<div class="col-md-2 uploadImage"  data-id="' + result.image + '">' +
                             '<div class="thumbnail">' +
                             '<i class="fa fa-times fa-2x icon-delete" aria-hidden="true"></i>' +
@@ -92,7 +91,7 @@ $(function () {
                 });
             }
         };
-
+        //Ініціалізація кропера та його кнопок
         function init() {
             //Ініціалізація кнопок та самого кропу
             initButtonControls();
@@ -204,7 +203,7 @@ $(function () {
                 });
             }
         }
-
+        //Запуск ініціалізації
         function run() {
             init();
         }
@@ -215,6 +214,7 @@ $(function () {
             //Включити -----------
             loader.show();
             var reader = new FileReader();
+            //Закінчення анімації та виведення картинки в всіх пропорціях
             reader.onload = function (e) {
                 //Виключити ---------
                 var img = new Image();
@@ -234,8 +234,8 @@ $(function () {
 
                     context.drawImage(img, 0, 0);
                     var cropper = $canvas.cropper('destroy').cropper({
-                        aspectRatio: 1 / 1,
-                        viewMode: 1,
+                        aspectRatio: 16 / 9,
+                        viewMode: 0,
                         dragMode: 'move',
                         preview: '.img-preview',
                         //autoCropArea: 0.00000001,
@@ -257,10 +257,11 @@ $(function () {
             reader.readAsDataURL(fileImage);
         }
 
+        //якшо картинка вже скропана то вивести її на ліст та сховати діалого вікно з кропером
         function cropped() {
             if (isCropped) {
                 var $canvas = $("#canvas");
-                var croppedImage = $canvas.cropper('getCroppedCanvas').toDataURL('image/jpg');
+                var croppedImage = $canvas.cropper('getCroppedCanvas').toDataURL('image/png');
                 server.sendImage(croppedImage.split(',')[1]);
                 dialog.hide();
                 isCropped = false;
@@ -268,6 +269,6 @@ $(function () {
         }
         return { start: run };
     }();
-
+    //Запуск кропера
     cropper.start();
 });

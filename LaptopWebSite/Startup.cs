@@ -1,4 +1,5 @@
 ﻿using Hangfire;
+using LaptopWebSite.Areas.Admin.Controllers;
 using LaptopWebSite.Controllers;
 using Microsoft.Owin;
 using Owin;
@@ -12,7 +13,7 @@ namespace LaptopWebSite
         {
             ConfigureAuth(app);
             GlobalConfiguration.Configuration.UseSqlServerStorage("DefaultConnection");
-            ProductController obj = new ProductController();
+            AdminPanelController obj = new AdminPanelController();
             app.UseHangfireDashboard("/myJobDashboard", new DashboardOptions()
             {
                 Authorization = new[] { new HangfireAuthorizationFilter()}

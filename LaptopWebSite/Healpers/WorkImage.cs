@@ -40,7 +40,7 @@ namespace CourseWork.Helper
                             width = (int)Math.Round(width / divider);
                         }
                     }
-                    using (Bitmap outBmp = new Bitmap(width, height, PixelFormat.Format24bppRgb))
+                    using (Bitmap outBmp = new Bitmap(width, height, PixelFormat.Format32bppArgb))
                     {
                         using (Graphics oGraphics = Graphics.FromImage(outBmp))
                         {
